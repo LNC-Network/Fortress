@@ -6,7 +6,7 @@ A simple Vault-like secret manager built with **Node.js**, **Express**, and **SQ
 
 ## 🏗️ Project Structure
 
-
+```
 Fortress/
 ├─ apps/
 │  ├─ backend/       # Express + SQLite backend
@@ -15,7 +15,7 @@ Fortress/
 ├─ packages/         # Shared packages (optional)
 ├─ pnpm-workspace.yaml
 └─ turbo.json        # Turborepo configuration
-
+```
 ---
 
 ## ⚡ Features
