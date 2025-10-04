@@ -1,250 +1,135 @@
-Here’s a **comprehensive README** template for your Vault alternative project. It covers setup, architecture, commands, security notes, and contribution guidelines. You can expand or adjust as your project evolves.
+# Turborepo starter
 
-# VaultX – A Self-Built Secrets Manager
+This Turborepo starter is maintained by the Turborepo core team.
 
-**VaultX** is an alternative to HashiCorp Vault, designed for securely storing and managing secrets for teams and applications.  
-It provides:
+## Using this example
 
-- Encrypted secret storage
-- Role-based access control (RBAC)
-- CLI and API access
-- Optional web dashboard
-- Extensible architecture for plugins and dynamic secrets
+Run the following command:
 
----
-
-## Table of Contents
-
-1. [Project Structure](#project-structure)
-2. [Features](#features)
-3. [Tech Stack](#tech-stack)
-4. [Getting Started](#getting-started)
-5. [Running the Apps](#running-the-apps)
-6. [Database Setup](#database-setup)
-7. [Encryption & Security](#encryption--security)
-8. [Development Workflow](#development-workflow)
-9. [Testing](#testing)
-10. [Contributing](#contributing)
-11. [Roadmap](#roadmap)
-12. [License](#license)
-
----
-
-## Project Structure
-
-```pgsql
-vaultx/
-├── apps/
-│ ├── backend/ # Go backend API
-│ ├── cli/ # CLI client (Go)
-│ └── web/ # Next.js frontend dashboard
-├── libs/ # Shared utilities, types, proto definitions
-├── docker/ # Dockerfiles & docker-compose
-├── scripts/ # Helper scripts
-├── nx.json # Nx workspace config
-└── Makefile # Common commands
-
-````
-
----
-
-## Features
-
-- **Secret Storage** – AES-256-GCM encrypted secrets stored in PostgreSQL or KV store.
-- **Authentication** – JWT, API tokens, or OAuth integration.
-- **Role-Based Access Control** – Define who can read/write which secrets.
-- **CLI Access** – `vaultx login`, `vaultx get secret`, etc.
-- **Web Dashboard** – React/Next.js interface for managing secrets.
-- **Auditing & Versioning** – Track secret access and history.
-- **Extensible Architecture** – Add plugins for dynamic secrets (DB creds, cloud API keys).
-
----
-
-## Tech Stack
-
-| Layer       | Technology |
-|------------|------------|
-| Backend    | Go (Fiber / Echo) |
-| CLI        | Go (Cobra) |
-| Frontend   | Next.js + React + TailwindCSS |
-| Database   | PostgreSQL |
-| Encryption | AES-256-GCM, Ed25519 / RSA signing |
-| Monorepo   | Nx |
-| DevOps     | Docker, Docker Compose, Makefile |
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Go >= 1.20
-- Node.js >= 20
-- pnpm / npm
-- Docker & Docker Compose
-- PostgreSQL (local or container)
-
-### Clone the Repo
-
-```bash
-git clone https://github.com/yourusername/vaultx.git
-cd vaultx
-
-
----
-
-## Running the Apps
-
-### 1. Backend API (Go)
-
-```bash
-nx run backend:serve
-# or
-cd apps/backend
-go run cmd/main.go
+```sh
+npx create-turbo@latest
 ```
 
-### 2. CLI
+## What's inside?
 
-```bash
-nx run cli:run
-# or
-cd apps/cli
-go run cmd/main.go
-```
+This Turborepo includes the following packages/apps:
 
-### 3. Web Dashboard (Next.js)
+### Apps and Packages
 
-```bash
-nx serve web
-# or
-cd apps/web
-pnpm dev
-```
+- `docs`: a [Next.js](https://nextjs.org/) app
+- `web`: another [Next.js](https://nextjs.org/) app
+- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
+- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
-### 4. Full Stack via Docker Compose
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-```bash
-docker-compose up
-```
+### Utilities
 
----
+This Turborepo has some additional tools already setup for you:
 
-## Database Setup
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
 
-```sql
--- Example: PostgreSQL
-CREATE DATABASE vaultx;
-CREATE USER vaultx_user WITH PASSWORD 'vaultx_password';
-GRANT ALL PRIVILEGES ON DATABASE vaultx TO vaultx_user;
-```
+### Build
 
-- Apply migrations (if any) with your migration tool (Drizzle, Flyway, etc.)
-
----
-
-## Encryption & Security
-
-- Secrets are encrypted **AES-256-GCM** at rest.
-- Master keys are never committed; manage via environment variables or KMS.
-- All API communications are via **HTTPS**.
-- CLI communicates with backend via **secure REST/gRPC**.
-
-**Env variables example** (`.env`):
+To build all apps and packages, run the following command:
 
 ```
-VAULTX_MASTER_KEY=your_master_key_here
-DATABASE_URL=postgres://vaultx_user:vaultx_password@localhost:5432/vaultx
+cd my-turborepo
+
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo build
+
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo build
+yarn dlx turbo build
+pnpm exec turbo build
 ```
 
----
-
-## Development Workflow
-
-- Use Nx to run, build, and test apps:
-
-```bash
-nx serve backend
-nx serve cli
-nx serve web
-```
-
-- Use Makefile shortcuts:
-
-```bash
-make run-backend
-make run-web
-make run-cli
-make build-all
-```
-
-- Shared code lives in `/libs/shared` and can be imported by any app.
-
----
-
-## Testing
-
-- Backend: Go tests
-
-```bash
-cd apps/backend
-go test ./...
-```
-
-- CLI: Go tests
-
-```bash
-cd apps/cli
-go test ./...
-```
-
-- Frontend: React testing library / Jest
-
-```bash
-cd apps/web
-pnpm test
-```
-
----
-
-## Contributing
-
-1. Fork the repo
-2. Create a branch: `feature/your-feature`
-3. Run tests locally
-4. Submit a pull request
-5. Follow Nx workspace conventions
-
----
-
-## Roadmap
-
-- [ ] Secret versioning
-- [ ] Secret TTL / lease system
-- [ ] Plugin system for dynamic secrets
-- [ ] Multi-user roles & teams
-- [ ] Audit logs and analytics
-- [ ] Remote cache / distributed backend
-
----
-
-## License
-
-MIT License © 2025 VaultX Team
-
----
-
-## Notes
-
-- Designed as a **developer-friendly, self-hosted secrets manager**.
-- Suitable for teams, personal projects, and experimentation.
-- Security-focused: **audit and encryption are core principles**.
+You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
 
 ```
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo build --filter=docs
 
----
-
-I can also create a **more visual version with architecture diagrams, Nx workflow, CLI commands cheat sheet, and environment setup tables** if you want — it would make this README **production-ready** for GitHub.
-
-Do you want me to do that next?
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo build --filter=docs
+yarn exec turbo build --filter=docs
+pnpm exec turbo build --filter=docs
 ```
+
+### Develop
+
+To develop all apps and packages, run the following command:
+
+```
+cd my-turborepo
+
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo dev
+
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo dev
+yarn exec turbo dev
+pnpm exec turbo dev
+```
+
+You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+
+```
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo dev --filter=web
+
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo dev --filter=web
+yarn exec turbo dev --filter=web
+pnpm exec turbo dev --filter=web
+```
+
+### Remote Caching
+
+> [!TIP]
+> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+
+Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+
+By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+
+```
+cd my-turborepo
+
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo login
+
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo login
+yarn exec turbo login
+pnpm exec turbo login
+```
+
+This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+
+Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+
+```
+# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
+turbo link
+
+# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
+npx turbo link
+yarn exec turbo link
+pnpm exec turbo link
+```
+
+## Useful Links
+
+Learn more about the power of Turborepo:
+
+- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
+- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
+- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
+- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
+- [Configuration Options](https://turborepo.com/docs/reference/configuration)
+- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
