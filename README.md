@@ -1,90 +1,250 @@
-# Fortress
+Here’s a **comprehensive README** template for your Vault alternative project. It covers setup, architecture, commands, security notes, and contribution guidelines. You can expand or adjust as your project evolves.
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+# VaultX – A Self-Built Secrets Manager
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+**VaultX** is an alternative to HashiCorp Vault, designed for securely storing and managing secrets for teams and applications.  
+It provides:
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- Encrypted secret storage
+- Role-based access control (RBAC)
+- CLI and API access
+- Optional web dashboard
+- Extensible architecture for plugins and dynamic secrets
 
-## Finish your CI setup
+---
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/HjrOoK8keB)
+## Table of Contents
+
+1. [Project Structure](#project-structure)
+2. [Features](#features)
+3. [Tech Stack](#tech-stack)
+4. [Getting Started](#getting-started)
+5. [Running the Apps](#running-the-apps)
+6. [Database Setup](#database-setup)
+7. [Encryption & Security](#encryption--security)
+8. [Development Workflow](#development-workflow)
+9. [Testing](#testing)
+10. [Contributing](#contributing)
+11. [Roadmap](#roadmap)
+12. [License](#license)
+
+---
+
+## Project Structure
+
+```pgsql
+vaultx/
+├── apps/
+│ ├── backend/ # Go backend API
+│ ├── cli/ # CLI client (Go)
+│ └── web/ # Next.js frontend dashboard
+├── libs/ # Shared utilities, types, proto definitions
+├── docker/ # Dockerfiles & docker-compose
+├── scripts/ # Helper scripts
+├── nx.json # Nx workspace config
+└── Makefile # Common commands
+
+````
+
+---
+
+## Features
+
+- **Secret Storage** – AES-256-GCM encrypted secrets stored in PostgreSQL or KV store.
+- **Authentication** – JWT, API tokens, or OAuth integration.
+- **Role-Based Access Control** – Define who can read/write which secrets.
+- **CLI Access** – `vaultx login`, `vaultx get secret`, etc.
+- **Web Dashboard** – React/Next.js interface for managing secrets.
+- **Auditing & Versioning** – Track secret access and history.
+- **Extensible Architecture** – Add plugins for dynamic secrets (DB creds, cloud API keys).
+
+---
+
+## Tech Stack
+
+| Layer       | Technology |
+|------------|------------|
+| Backend    | Go (Fiber / Echo) |
+| CLI        | Go (Cobra) |
+| Frontend   | Next.js + React + TailwindCSS |
+| Database   | PostgreSQL |
+| Encryption | AES-256-GCM, Ed25519 / RSA signing |
+| Monorepo   | Nx |
+| DevOps     | Docker, Docker Compose, Makefile |
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Go >= 1.20
+- Node.js >= 20
+- pnpm / npm
+- Docker & Docker Compose
+- PostgreSQL (local or container)
+
+### Clone the Repo
+
+```bash
+git clone https://github.com/yourusername/vaultx.git
+cd vaultx
 
 
-## Generate a library
+---
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+## Running the Apps
+
+### 1. Backend API (Go)
+
+```bash
+nx run backend:serve
+# or
+cd apps/backend
+go run cmd/main.go
 ```
 
-## Run tasks
+### 2. CLI
 
-To build the library use:
-
-```sh
-npx nx build pkg1
+```bash
+nx run cli:run
+# or
+cd apps/cli
+go run cmd/main.go
 ```
 
-To run any task with Nx use:
+### 3. Web Dashboard (Next.js)
 
-```sh
-npx nx <target> <project-name>
+```bash
+nx serve web
+# or
+cd apps/web
+pnpm dev
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### 4. Full Stack via Docker Compose
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
-
-```
-npx nx release
+```bash
+docker-compose up
 ```
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+---
 
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Database Setup
 
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
+```sql
+-- Example: PostgreSQL
+CREATE DATABASE vaultx;
+CREATE USER vaultx_user WITH PASSWORD 'vaultx_password';
+GRANT ALL PRIVILEGES ON DATABASE vaultx TO vaultx_user;
 ```
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
+- Apply migrations (if any) with your migration tool (Drizzle, Flyway, etc.)
 
-```sh
-npx nx sync:check
+---
+
+## Encryption & Security
+
+- Secrets are encrypted **AES-256-GCM** at rest.
+- Master keys are never committed; manage via environment variables or KMS.
+- All API communications are via **HTTPS**.
+- CLI communicates with backend via **secure REST/gRPC**.
+
+**Env variables example** (`.env`):
+
+```
+VAULTX_MASTER_KEY=your_master_key_here
+DATABASE_URL=postgres://vaultx_user:vaultx_password@localhost:5432/vaultx
 ```
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+---
 
+## Development Workflow
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- Use Nx to run, build, and test apps:
 
-## Install Nx Console
+```bash
+nx serve backend
+nx serve cli
+nx serve web
+```
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+- Use Makefile shortcuts:
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```bash
+make run-backend
+make run-web
+make run-cli
+make build-all
+```
 
-## Useful links
+- Shared code lives in `/libs/shared` and can be imported by any app.
 
-Learn more:
+---
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Testing
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- Backend: Go tests
+
+```bash
+cd apps/backend
+go test ./...
+```
+
+- CLI: Go tests
+
+```bash
+cd apps/cli
+go test ./...
+```
+
+- Frontend: React testing library / Jest
+
+```bash
+cd apps/web
+pnpm test
+```
+
+---
+
+## Contributing
+
+1. Fork the repo
+2. Create a branch: `feature/your-feature`
+3. Run tests locally
+4. Submit a pull request
+5. Follow Nx workspace conventions
+
+---
+
+## Roadmap
+
+- [ ] Secret versioning
+- [ ] Secret TTL / lease system
+- [ ] Plugin system for dynamic secrets
+- [ ] Multi-user roles & teams
+- [ ] Audit logs and analytics
+- [ ] Remote cache / distributed backend
+
+---
+
+## License
+
+MIT License © 2025 VaultX Team
+
+---
+
+## Notes
+
+- Designed as a **developer-friendly, self-hosted secrets manager**.
+- Suitable for teams, personal projects, and experimentation.
+- Security-focused: **audit and encryption are core principles**.
+
+```
+
+---
+
+I can also create a **more visual version with architecture diagrams, Nx workflow, CLI commands cheat sheet, and environment setup tables** if you want — it would make this README **production-ready** for GitHub.
+
+Do you want me to do that next?
+```
