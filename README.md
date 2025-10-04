@@ -1,4 +1,4 @@
-# Fortress Vault
+# Fortress
 
 A simple Vault-like secret manager built with **Node.js**, **Express**, and **SQLite**, with a **CLI tool** to interact with secrets from the terminal.
 
