@@ -1,0 +1,26 @@
+{
+  "name": "@fortress/Fortress-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "implicitDependencies": [
+      "@fortress/Fortress"
+    ],
+    "targets": {
+      "e2e": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "apps/Fortress-e2e/jest.config.ts",
+          "passWithNoTests": true
+        },
+        "dependsOn": [
+          "@fortress/Fortress:build",
+          "@fortress/Fortress:serve"
+        ]
+      }
+    }
+  }
+}
