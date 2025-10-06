@@ -11,9 +11,6 @@
     },
     {
       "path": "./apps/cli"
-    },
-    {
-      "path": "./app/web"
     }
   ]
 }
