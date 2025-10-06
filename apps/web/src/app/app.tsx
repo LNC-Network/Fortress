@@ -1,9 +1,8 @@
-import NxWelcome from './nx-welcome';
-
+import PasswordVault from "./vault";
 export function App() {
   return (
     <div>
-      <NxWelcome title="@fortress/web" />
+      <PasswordVault />
     </div>
   );
 }
