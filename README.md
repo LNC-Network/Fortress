@@ -1,3 +1,5 @@
+![logo](./Fortress.png)
+
 # Fortress — Open Source Secrets Manager
 
 **Fortress** is an **open-source alternative to HashiCorp Vault**, built to provide secure, self-hosted secret management for developers and organizations.
@@ -71,10 +73,10 @@ Fortress/
 
 ### Prerequisites
 
-* **Node.js** ≥ 20
-* **npm** or **pnpm**
-* **PostgreSQL** or **SQLite**
-* **OpenSSL** (for key generation)
+- **Node.js** ≥ 20
+- **npm** or **pnpm**
+- **PostgreSQL** or **SQLite**
+- **OpenSSL** (for key generation)
 
 ---
 
@@ -90,6 +92,7 @@ cd fortress
 ```bash
 npm install
 ```
+
 ---
 
 ### 4️⃣ Start Development Servers
@@ -136,8 +139,6 @@ POST /api/secrets/API_KEY/rotate
 
 ---
 
-
-
 ### Run Tests
 
 ```bash
@@ -154,19 +155,19 @@ nx build web
 
 This will start:
 
-* `fortress-backend` (Express server)
-* `fortress-web` (Next.js dashboard)
+- `fortress-backend` (Express server)
+- `fortress-web` (Next.js dashboard)
 
 ---
 
 ## 🔒 Security
 
-* AES-256 encryption for secret values
-* Secure JWT authentication
-* Environment-based isolation
-* Role-based access control
-* Optional audit logging
-* Hash verification for data integrity
+- AES-256 encryption for secret values
+- Secure JWT authentication
+- Environment-based isolation
+- Role-based access control
+- Optional audit logging
+- Hash verification for data integrity
 
 If you discover a security issue, **do not open a public issue**.
 Instead, please email: `jit.nathdeb@gmail.com`
@@ -175,13 +176,13 @@ Instead, please email: `jit.nathdeb@gmail.com`
 
 ## 🧠 Roadmap
 
-* [ ] CLI for secret management
-* [ ] Multi-tenant support
-* [ ] Plugin system for custom storage
-* [ ] Kubernetes Secret Sync
-* [ ] Integration with GitHub Actions
-* [ ] Encrypted Secret Sharing
-* [ ] Zero-trust access control
+- [ ] CLI for secret management
+- [ ] Multi-tenant support
+- [ ] Plugin system for custom storage
+- [ ] Kubernetes Secret Sync
+- [ ] Integration with GitHub Actions
+- [ ] Encrypted Secret Sharing
+- [ ] Zero-trust access control
 
 ---
 
@@ -197,6 +198,7 @@ We welcome open-source contributions!
    ```bash
    git checkout -b feature/my-feature
    ```
+
 3. Commit and push
 4. Open a Pull Request
 
@@ -206,9 +208,9 @@ We welcome open-source contributions!
 
 Join the **LNC Network** developer community!
 
-* 💬 Discussions: [GitHub Discussions](https://github.com/orgs/LNC-Network/discussions)
-* 📧 Contact: `jit.nathdeb@gmail.com`
-* 🛠️ Issues: [GitHub Issues](https://github.com/LNC-Network/fortress/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/orgs/LNC-Network/discussions)
+- 📧 Contact: `jit.nathdeb@gmail.com`
+- 🛠️ Issues: [GitHub Issues](https://github.com/LNC-Network/fortress/issues)
 
 ---
 
@@ -222,7 +224,6 @@ not licensed.
 
 Special thanks to:
 
-* The **LNC Network** team for maintaining and building Fortress.
-* The open-source community for inspiring transparent security infrastructure.
-* HashiCorp Vault, for pioneering modern secret management.
-
+- The **LNC Network** team for maintaining and building Fortress.
+- The open-source community for inspiring transparent security infrastructure.
+- HashiCorp Vault, for pioneering modern secret management.
