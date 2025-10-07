@@ -1,90 +1,198 @@
-# Fortress
+Fortress — Open Source Secrets Manager
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
-
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
-
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
-
-## Finish your CI setup
-
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/1KFr6BkHMc)
+Fortress is an open-source alternative to HashiCorp Vault, built to provide secure, self-hosted secret management for developers and organizations.
+It’s designed to be simple, extensible, and developer-first, offering APIs, UI, and integrations that make managing secrets easy and secure.
 
 
-## Generate a library
+---
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+🌟 Overview
+
+Fortress helps you store, manage, and access sensitive credentials like API keys, tokens, passwords, and environment variables — all through a modern, open architecture.
+
+It ensures end-to-end encryption, fine-grained access control, and audit logging for full security and visibility.
+Whether you’re a solo developer or managing infrastructure for an enterprise — Fortress adapts to your scale.
+
+
+---
+
+🔐 Core Features
+
+Feature	Description
+
+Secure Secret Storage	AES-256 encryption, per-secret versioning, and automatic key rotation.
+Access Control (RBAC)	Role-based permission model for users, teams, and services.
+Audit Logging	Detailed logs of every secret access, update, or deletion.
+RESTful & WebSocket APIs	Simple integration with backend services, CI/CD, or external tools.
+Multi-Environment Support	Manage secrets for dev, staging, and production separately.
+User Management	Invite, assign roles, and manage permissions from the dashboard.
+Web Dashboard	Clean, modern interface to view and organize secrets.
+Pluggable Storage	Default PostgreSQL / SQLite, with support for external drivers.
+Open API Schema	OpenAPI (Swagger) spec for easy SDK or client generation.
+
+
+
+---
+
+🧩 Tech Stack
+
+Layer	Technology
+
+Frontend	Next.js, TailwindCSS, TypeScript
+Backend	Node.js, Express, TypeScript, Nx Monorepo
+Database	PostgreSQL / SQLite
+Auth	JWT + Refresh Tokens
+Encryption	Node Crypto / OpenSSL
+Deployment	Docker, Docker Compose
+Testing	Jest, Supertest
+Lint & Format	ESLint, Prettier
+
+
+
+---
+
+🏗️ Architecture
+
+Fortress/
+├── apps/
+│   ├── web/          → Next.js dashboard
+│   └── backend/      → Express API service
+├── libs/
+│   ├── crypto/       → Encryption helpers
+│   ├── db/           → Database models and services
+│   ├── auth/         → JWT & user management
+│   └── common/       → Shared types and utilities
+├── docs/             → Project documentation
+├── scripts/          → Dev/Deploy scripts
+├── nx.json
+├── package.json
+└── README.md
+
+
+---
+
+⚙️ Installation
+
+Prerequisites
+
+Node.js ≥ 18
+
+npm or pnpm
+
+PostgreSQL or SQLite
+
+OpenSSL (for key generation)
+
+
+
+---
+
+1️⃣ Clone the Repository
+```bash
+git clone https://github.com/LNC-Network/fortress.git
+cd fortress
+```
+2️⃣ Install Dependencies
+```bash
+npm install
 ```
 
-## Run tasks
 
-To build the library use:
+---
 
-```sh
-npx nx build pkg1
-```
+🔒 Security
 
-To run any task with Nx use:
+AES-256 encryption for secret values
 
-```sh
-npx nx <target> <project-name>
-```
+Secure JWT authentication
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+Environment-based isolation
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Role-based access control
 
-## Versioning and releasing
+Optional audit logging
 
-To version and release the library use
-
-```
-npx nx release
-```
-
-Pass `--dry-run` to see what would happen without actually releasing the library.
-
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
-```
-
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
-
-```sh
-npx nx sync:check
-```
-
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+Hash verification for data integrity
 
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+If you discover a security issue, do not open a public issue.
+Instead, please email: security@lnc.network
 
-## Install Nx Console
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+---
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+🧠 Roadmap
 
-## Useful links
+[ ] CLI for secret management
 
-Learn more:
+[ ] Multi-tenant support
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+[ ] Plugin system for custom storage
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+[ ] Kubernetes Secret Sync
+
+[ ] Integration with GitHub Actions
+
+[ ] Encrypted Secret Sharing
+
+[ ] Zero-trust access control
+
+
+
+---
+
+🤝 Contributing
+
+We welcome open-source contributions!
+
+Steps:
+
+1. Fork the repo
+
+
+2. Create a new branch
+
+git checkout -b feature/my-feature
+
+
+3. Commit and push
+
+
+4. Open a Pull Request
+
+
+
+
+---
+
+🧭 Community
+
+Join the LNC Network developer community!
+
+💬 Discussions: GitHub Discussions
+
+📧 Contact: jit.nathdeb@gmail.com
+
+🛠️ Issues: GitHub Issues
+
+
+
+---
+
+📄 License
+
+no licence till date.
+
+
+---
+
+💬 Acknowledgments
+
+Special thanks to:
+
+The LNC Network team for maintaining and building Fortress.
+
+The open-source community for inspiring transparent security infrastructure.
+
+HashiCorp Vault, for pioneering modern secret management.
+
