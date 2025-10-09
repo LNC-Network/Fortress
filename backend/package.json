@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev main.ts",
+    "dev": "ts-node-dev src/main.ts",
     "lint": "eslint .",
     "build": "tsc ."
   },
