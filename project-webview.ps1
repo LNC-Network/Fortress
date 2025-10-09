@@ -1,1 +1,0 @@
-npx nx show project web
