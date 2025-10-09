@@ -1,16 +1,21 @@
 import express from 'express';
+import https from 'https';
 
-import vaultRouter from './routes/vault';
-import secretRouter from './routes/secret';
-import policyRouter from './routes/policy';
-import authRouter from './routes/auth';
+import vaultRouter from './routes/vault.ts';
+import secretRouter from './routes/secret.ts';
+import policyRouter from './routes/policy.ts';
+import authRouter from './routes/auth.ts';
 
 const app = express();
 
+app.use(express.json());
+
+https.createServer(app).listen(443);
+
 app.use('/api', vaultRouter);
-app.use('/api', secretRouter);
 app.use('/api', authRouter);
-app.use('/api', policyRouter);
+app.use('/api/vault', secretRouter);
+app.use('/api/vault', policyRouter);
 
 const PORT = process.env.PORT || 3333;
 const HOST = process.env.HOST || 'localhost';
