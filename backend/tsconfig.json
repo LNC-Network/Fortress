@@ -10,8 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true
+    "noEmit": false
   },
   "include": ["src/routes", "src/middleware", "src/lib", "src/main.ts"],
   "exclude": ["node_modules"]

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev src/main.ts",
     "lint": "eslint .",
-    "build": "tsc ."
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js"
   },
   "keywords": [],
   "author": "",

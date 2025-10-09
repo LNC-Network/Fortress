@@ -1,10 +1,10 @@
 import express from "express";
 import https from "https";
 
-import vaultRouter from "./routes/vault.ts";
-import secretRouter from "./routes/secret.ts";
-import policyRouter from "./routes/policy.ts";
-import authRouter from "./routes/auth.ts";
+import vaultRouter from "./routes/vault";
+import secretRouter from "./routes/secret";
+import policyRouter from "./routes/policy";
+import authRouter from "./routes/auth";
 
 const app = express();
 
