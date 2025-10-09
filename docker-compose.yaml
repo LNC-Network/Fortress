@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fortress-backend
+    ports:
+      - "3000:3333"
+    env_file:
+      - ./backend/.env
+    environment:
+      - NODE_ENV=production
+    restart: always
+    networks:
+      - fortress-network
+
+  frontend:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: fortress-web
+    ports:
+      - "80:3000" 
+    env_file:
+      - ./web/.env
+    environment:
+      - NODE_ENV=production
+      # frontend talks to backend internally (via service name)
+      - NEXT_PUBLIC_API_URL=http://backend:3000/api
+    depends_on:
+      - backend
+    restart: always
+    networks:
+      - fortress-network
+
+networks:
+  fortress-network:
+    driver: bridge
