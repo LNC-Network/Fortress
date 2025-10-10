@@ -1,9 +1,9 @@
-import express from 'express';
+import express from "express";
 
 const router = express.Router();
 
-router.get('/vault', (req, res) => {
-  res.send('Vault endpoint');
+router.get("/vault", (_req, res) => {
+	res.send("Vault endpoint");
 });
 
 export default router;

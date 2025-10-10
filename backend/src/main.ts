@@ -1,10 +1,13 @@
-import express from "express";
-import https from "https";
-
-import vaultRouter from "./routes/vault";
-import secretRouter from "./routes/secret";
-import policyRouter from "./routes/policy";
+import https from "node:https";
+import dotenv from "dotenv";
+import express, { type Request, type Response } from "express";
+import { initDatabase } from "./lib/db";
 import authRouter from "./routes/auth";
+import policyRouter from "./routes/policy";
+import secretRouter from "./routes/secret";
+import vaultRouter from "./routes/vault";
+
+initDatabase();
 
 const app = express();
 
@@ -17,14 +20,16 @@ app.use("/api", authRouter);
 app.use("/api/vault", secretRouter);
 app.use("/api/vault", policyRouter);
 
+dotenv.config();
+
 const PORT = process.env.PORT || 3333;
 const HOST = process.env.HOST || "localhost";
 
-app.get("/api", (req, res) => {
-  res.send({ message: "Welcome to backend!" });
+app.get("/api", (_req: Request, res: Response) => {
+	res.send({ message: "Welcome to backend!" });
 });
 
 const server = app.listen(PORT, () => {
-  console.log(`Listening at http://${HOST}:${PORT}/api`);
+	console.log(`Listening at http://${HOST}:${PORT}/api`);
 });
 server.on("error", console.error);

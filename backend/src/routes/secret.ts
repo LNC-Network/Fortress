@@ -1,9 +1,9 @@
-import express from 'express';
+import express from "express";
 
 const router = express.Router();
 
-router.get('/secret', (req, res) => {
-  res.send('Secret endpoint');
+router.get("/secret", (_req, res) => {
+	res.send("Secret endpoint");
 });
 
 export default router;
