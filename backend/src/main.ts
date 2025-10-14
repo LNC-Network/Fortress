@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 import express, { type Request, type Response } from "express";
 import { initDatabase } from "./lib/db";
 import authRouter from "./routes/auth";
+import vaultRouter from "./routes/locker";
 import policyRouter from "./routes/policy";
 import secretRouter from "./routes/secret";
-import vaultRouter from "./routes/vault";
 
 initDatabase();
 
