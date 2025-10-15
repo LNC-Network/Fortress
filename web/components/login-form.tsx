@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Field,
-  FieldDescription,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
@@ -36,9 +35,6 @@ export function LoginForm({
                 <Button type="submit" className="bg-blue-800 hover:bg-blue-700">
                   Login
                 </Button>
-                <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="/signup">Sign up</a>
-                </FieldDescription>
               </Field>
             </FieldGroup>
           </form>

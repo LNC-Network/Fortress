@@ -22,14 +22,14 @@ app.use("/api/vault", policyRouter);
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || "localhost";
 
 app.get("/api", (_req: Request, res: Response) => {
-	res.send({ message: "Welcome to backend!" });
+  res.send({ message: "Welcome to backend!" });
 });
 
 const server = app.listen(PORT, () => {
-	console.log(`Listening at http://${HOST}:${PORT}/api`);
+  console.log(`Listening at http://${HOST}:${PORT}/api`);
 });
 server.on("error", console.error);

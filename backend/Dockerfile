@@ -12,7 +12,6 @@ RUN npm run build
 
 ENV PORT=3000
 
-
 EXPOSE 3000
-
-CMD ["node", "dist/main.js"]
+# This needs to be fixed
+CMD ["npm","run", "dev"]
